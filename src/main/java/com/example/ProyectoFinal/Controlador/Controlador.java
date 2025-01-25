@@ -19,7 +19,7 @@ public class Controlador {
         @Autowired
         private Servicios ventasServicio;
 
-        @GetMapping("/obtenerVentas")
+        @GetMapping("/obtenerVenta")
         public List<Ventas> obtenerVentas() {
             return ventasServicio.obtenerTodasLasVentas();
         }
