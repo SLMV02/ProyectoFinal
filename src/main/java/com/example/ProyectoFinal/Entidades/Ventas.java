@@ -5,29 +5,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 
-
 @Entity
+@Table(name = "ventas")
 public class Ventas {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private LocalDate fecha;
     private String producto;
-    private int cantidad;
     private double precio;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuarios usuario;
 
     public Ventas() {
     }
 
-    public Ventas(Long id, LocalDate fecha, String producto, int cantidad, double precio) {
+    public Ventas(Long id, LocalDate fecha, String producto, double precio, Usuarios usuario) {
         this.id = id;
         this.fecha = fecha;
         this.producto = producto;
-        this.cantidad = cantidad;
         this.precio = precio;
+        this.usuario = usuario;
     }
 
     public Long getId() {
@@ -42,12 +48,12 @@ public class Ventas {
         return producto;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
     public double getPrecio() {
         return precio;
+    }
+
+    public Usuarios getUsuario() {
+        return usuario;
     }
 
     public void setId(Long id) {
@@ -62,13 +68,14 @@ public class Ventas {
         this.producto = producto;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    
+
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
+
+ 
 }
+
