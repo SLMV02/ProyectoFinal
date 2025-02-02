@@ -1,6 +1,11 @@
-FROM amazoncorretto:23-alpine-jdk
+# Usa una versión específica de Amazon Corretto para mayor estabilidad
+FROM amazoncorretto:17-alpine
 
+# Crea y define un directorio de trabajo
+WORKDIR /app
 
-COPY ./target/demo-0.0.1-SNAPSHOT.jar /app.jar
+# Copia el archivo JAR al contenedor
+COPY ./target/demo-0.0.1-SNAPSHOT.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Define la entrada del contenedor
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

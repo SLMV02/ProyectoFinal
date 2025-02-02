@@ -1,85 +1,65 @@
 package com.example.ProyectoFinal.Entidades;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.util.Set;
 
 @Entity
-@Table(name = "usuarios")
-public class Usuarios {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String nombre;
+    private String nombreUsuario;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    private String contrasena;
 
-    @Column(nullable = false)
-    private String password;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> roles;
 
-    @ManyToOne
-    @JoinColumn(name = "rol_id", nullable = false)
-    private Roles rol;
-
-    public Usuarios() {
+    public Usuario() {
     }
 
-    public Usuarios(Long id, String nombre, String username, String password, Roles rol) {
-        this.id = id;
-        this.nombre = nombre;
-        this.username = username;
-        this.password = password;
-        this.rol = rol;
+    public Usuario(String nombreUsuario, String contrasena, Set<String> roles) {
+        this.nombreUsuario = nombreUsuario;
+        this.contrasena = contrasena;
+        this.roles = roles;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Roles getRol() {
-        return rol;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setRol(Roles rol) {
-        this.rol = rol;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
-    
-    
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 }

@@ -1,81 +1,82 @@
-
 package com.example.ProyectoFinal.Entidades;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "ventas")
-public class Ventas {
+public class Venta {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate fecha;
-    private String producto;
-    private double precio;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuarios usuario;
+    private String productoOServicio;
 
-    public Ventas() {
+    private int cantidad;
+
+    private double precioUnitario;
+
+    private double precioTotal;
+
+    public Venta() {
     }
 
-    public Ventas(Long id, LocalDate fecha, String producto, double precio, Usuarios usuario) {
-        this.id = id;
+    public Venta(LocalDate fecha, String productoOServicio, int cantidad, double precioUnitario) {
         this.fecha = fecha;
-        this.producto = producto;
-        this.precio = precio;
-        this.usuario = usuario;
+        this.productoOServicio = productoOServicio;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.precioTotal = cantidad * precioUnitario;
     }
 
     public Long getId() {
         return id;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public String getProducto() {
-        return producto;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public Usuarios getUsuario() {
-        return usuario;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
     }
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
+    public String getProductoOServicio() {
+        return productoOServicio;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setProductoOServicio(String productoOServicio) {
+        this.productoOServicio = productoOServicio;
     }
 
-    public void setUsuario(Usuarios usuario) {
-        this.usuario = usuario;
+    public int getCantidad() {
+        return cantidad;
     }
 
- 
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+        this.precioTotal = this.precioUnitario * cantidad;
+    }
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+        this.precioTotal = this.precioUnitario * this.cantidad;
+    }
+
+    public double getPrecioTotal() {
+        return precioTotal;
+    }
 }
-
